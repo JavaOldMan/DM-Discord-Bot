@@ -1,0 +1,7 @@
+{
+    "token": "yourTokenHere",
+    "prefix": "-",
+    "yourid": "yourDiscordId",
+    "defaultmsg": "-help | dedev.io",
+    "botstatus": "dnd"
+}

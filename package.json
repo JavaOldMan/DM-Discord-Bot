@@ -1,0 +1,14 @@
+{
+  "name": "knif",
+  "version": "1.0.0",
+  "description": "Discord Bot",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "KNIF#0001",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  }
+}
