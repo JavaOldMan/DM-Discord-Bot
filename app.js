@@ -6,6 +6,7 @@ const bot = new Discord.Client();
 
 let cooldown = new Set();
 let cdsecs = parseInt(config.cooldown);
+let cdmin = cdsecs / 60;
 
 var pmsg = config.defaultmsg;
 var ptype = parseInt(config.type);
@@ -16,15 +17,18 @@ bot.on('ready',function(){
 })
 
 bot.on("message", (message) => {
+    //Embeded Preset Functions
+    function success(input) { message.channel.send({embed: { color: 65286, description: ":white_check_mark: " + input, }}); }
+    function info(input) { message.channel.send({embed: { color: 3901635, description: ":information_source: " + input, }}); }
+    function warning(input) { message.channel.send({embed: { color: 16745984, description: ":warning: " + input, }}); }
+    function error(input) { message.channel.send({embed: { color: 16711685, description: ":no_entry_sign: " + input, }}); }
+
     if(message.author.bot) return;
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
     if (message.content === `<@${bot.user.id}>` || message.content == `<@!${bot.user.id}>`) {
-        message.channel.send({embed: {
-            color: 16745984,
-            description: `:warning: Hello! Please type **-help**!`,
-        }});
+        info(`Hello, ${message.author.toString()}! Please type **-help** to see all commands!`);
         message.delete();
         return;
     }
@@ -33,10 +37,7 @@ bot.on("message", (message) => {
 
     if(command === "say") {
         if (message.author.id !== config.yourid){
-            return message.channel.send({embed: {
-                color: 16711685,
-                description: `:no_entry_sign: Sorry ${message.author.toString()}, only <@${config.yourid}> can use this command!`
-            }});
+            return error(`Sorry ${message.author.toString()}, only <@${config.yourid}> can use this command!`);
         }else{
             const sayMessage = args.join(" ");
             message.delete().catch(O_o=>{}); 
@@ -49,10 +50,7 @@ bot.on("message", (message) => {
 
     if(command === "message") {
         if (message.author.id !== config.yourid){
-            return message.channel.send({embed: {
-                color: 16711685,
-                description: `:no_entry_sign: Sorry ${message.author.toString()}, only <@${config.yourid}> can use this command!`
-            }});
+            return error(`Sorry ${message.author.toString()}, only <@${config.yourid}> can use this command!`);
         }else{
             const sayMessages = args.join(" ");
             message.channel.send({embed: {
@@ -66,10 +64,7 @@ bot.on("message", (message) => {
 
     if(command === "type") {
         if (message.author.id !== config.yourid){
-            return message.channel.send({embed: {
-                color: 16711685,
-                description: `:no_entry_sign: Sorry ${message.author.toString()}, only <@${config.yourid}> can use this command!`
-            }});
+            return error(`Sorry ${message.author.toString()}, only <@${config.yourid}> can use this command!`);
         }else{
             const sayMessagess = args.join(" ");
             if(sayMessagess == "1" || sayMessagess == "2" || sayMessagess == "3"){
@@ -115,7 +110,7 @@ bot.on("message", (message) => {
                     value: `Sends a DM to <@${config.yourid}>`
                   },
                   {
-                      name: "msg",
+                      name: "dm",
                       value: "Sends a DM to the entered ID"
                   }
                 ]
@@ -128,15 +123,15 @@ bot.on("message", (message) => {
                   },
                 fields: [{
                     name: "say",
-                    value: "says something as the bot"
+                    value: "Says something as the Bot"
                   },
                   {
                     name: "message",
-                    value: "sets the message of the bot"
+                    value: "Sets the message of the Bot"
                   },
                   {
                     name: "type",
-                    value: "sets the type of the msg"
+                    value: "Sets the type of the msg"
                   },
                   {
                       name: config.devmsgcmd,
@@ -149,7 +144,23 @@ bot.on("message", (message) => {
                   {
                       name: "ping",
                       value: "Shows the Bots response time"
-                  }
+                  },
+                  {
+                    name: "success",
+                    value: "Sends a success message"
+                  },
+                  {
+                    name: "info",
+                    value: "Sends a info message"
+                  },
+                  {
+                    name: "error",
+                    value: "Sends a error message"
+                  },
+                  {
+                    name: "warning",
+                    value: "Sends a success message"
+                  },
                 ]
             }});
         } 
@@ -158,10 +169,8 @@ bot.on("message", (message) => {
     if(command === config.devmsgcmd){
         if(cooldown.has(message.author.id)){
             message.delete();
-            message.channel.send({embed: {
-                color: 16711685,
-                description: `:no_entry_sign: You have to wait ${cdsecs} seconds between each direct message to <@${config.yourid}>!`,
-            }});
+            error(`You have to wait ${cdmin} minutes between each direct message to <@${config.yourid}>!`);
+            return;
         }else{
             if(args.join(" ") !== ""){
                 try {
@@ -176,25 +185,17 @@ bot.on("message", (message) => {
                             text: "ID: " + message.author.id
                         },
                     }});
-                    message.channel.send({embed: {
-                        color: 65286,
-                        description: `:white_check_mark: Your message to <@${config.yourid}> has been successfully sent.`,
-                    }});
+                    success(`Your message to <@${config.yourid}> has been sent successfully.`);
+                    info(`He will reply as quickly as possible, please give him time to do!`);
                     message.delete();
                     cooldown.add(message.author.id);
                     return;
                 }
                 catch(err) {
-                    return message.channel.send({embed: {
-                        color: 16711685,
-                        description: `:no_entry_sign: ERROR: ` + err.message,
-                    }});
+                    return error(`ERROR: ` + err.message);
                 }
             }else{
-                message.channel.send({embed: {
-                    color: 16745984,
-                    description: `:warning: Please enter a message to <@${config.yourid}>!`,
-                }});
+                warning(`Please enter a message to <@${config.yourid}>!`);
                 message.delete();
                 return;
             }
@@ -204,16 +205,10 @@ bot.on("message", (message) => {
     if(command === "dm"){
         if(args.join(" ") !== ""){
             if(args[0].startsWith("<@") || !args[0].startsWith("0") && !args[0].startsWith("1") && !args[0].startsWith("2") && !args[0].startsWith("3") && !args[0].startsWith("4") && !args[0].startsWith("5") && !args[0].startsWith("6") && !args[0].startsWith("7") && !args[0].startsWith("8") && !args[0].startsWith("9")){
-                return message.channel.send({embed: {
-                    color: 16745984,
-                    description: `:warning: Please enter a valid user id!`,
-                }});
+                return warning("Please enter a valid user id!");
             }
             if(args.length == 1){
-                return message.channel.send({embed: {
-                    color: 16745984,
-                    description: `:warning: Please enter a message!`,
-                }});
+                return warning("Please enter a message!");
             }
             let to = args[0];
             let msg = args[1];
@@ -235,32 +230,60 @@ bot.on("message", (message) => {
                         text: "ID: " + message.author.id
                     },
                 }});
-                message.channel.send({embed: {
-                    color: 65286,
-                    description: `:white_check_mark: Your message to <@${to}> has been successfully sent.`,
-                }});
+                success(`Your message to <@${to}> has been successfully sent.`);
                 return;
             }
             catch(err) {
-                return message.channel.send({embed: {
-                    color: 16711685,
-                    description: `:no_entry_sign: ERROR: ` + err.message,
-                }});
+                return error(`ERROR: ` + err.message);
             }
         }else{
-            return message.channel.send({embed: {
-                color: 16745984,
-                description: `:warning: Please enter a id and a message!`,
-            }});
+            return warning(`Please enter a id and a message!`);
         }
+    }
+
+    if(command === "success") {
+        if (message.author.id !== config.yourid){
+            return error(`Sorry ${message.author.toString()}, only <@${config.yourid}> can use this command!`);
+        }else{
+            const sayMessage = args.join(" ");
+            message.delete().catch(O_o=>{}); 
+            success(sayMessage);
+        } 
+    }
+
+    if(command === "error") {
+        if (message.author.id !== config.yourid){
+            return error(`Sorry ${message.author.toString()}, only <@${config.yourid}> can use this command!`);
+        }else{
+            const sayMessage = args.join(" ");
+            message.delete().catch(O_o=>{}); 
+            error(sayMessage);
+        } 
+    }
+
+    if(command === "info") {
+        if (message.author.id !== config.yourid){
+            return error(`Sorry ${message.author.toString()}, only <@${config.yourid}> can use this command!`);
+        }else{
+            const sayMessage = args.join(" ");
+            message.delete().catch(O_o=>{}); 
+            info(sayMessage);
+        } 
+    }
+
+    if(command === "warning") {
+        if (message.author.id !== config.yourid){
+            return error(`Sorry ${message.author.toString()}, only <@${config.yourid}> can use this command!`);
+        }else{
+            const sayMessage = args.join(" ");
+            message.delete().catch(O_o=>{}); 
+            warning(sayMessage);
+        } 
     }
 
     if(command === "ping") {
         if (message.author.id !== config.yourid){
-            return message.channel.send({embed: {
-                color: 16711685,
-                description: `:no_entry_sign: Sorry ${message.author.toString()}, only <@${config.yourid}> can use this command!`
-            }});
+            return error(`Sorry ${message.author.toString()}, only <@${config.yourid}> can use this command!`);
         }else{
             message.channel.send({embed: {
                 color: 1,
