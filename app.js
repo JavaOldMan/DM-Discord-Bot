@@ -18,10 +18,10 @@ bot.on('ready',function(){
 
 bot.on("message", (message) => {
     //Embeded Preset Functions
-    function success(input) { message.channel.send({embed: { color: 65286, description: ":white_check_mark: " + input, }}); }
-    function info(input) { message.channel.send({embed: { color: 3901635, description: ":information_source: " + input, }}); }
-    function warning(input) { message.channel.send({embed: { color: 16745984, description: ":warning: " + input, }}); }
-    function error(input) { message.channel.send({embed: { color: 16711685, description: ":no_entry_sign: " + input, }}); }
+    function success(input) { message.channel.send({embed: { color: 7778644, description: ":white_check_mark: " + input, }}); }
+    function info(input) { message.channel.send({embed: { color: 3835585, description: ":information_source: " + input, }}); }
+    function warning(input) { message.channel.send({embed: { color: 16763981, description: ":warning: " + input, }}); }
+    function error(input) { message.channel.send({embed: { color: 14101826, description: ":no_entry_sign: " + input, }}); }
 
     if(message.author.bot) return;
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
