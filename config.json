@@ -1,7 +1,10 @@
 {
-    "token": "yourTokenHere",
+    "token": "yourDiscordBotTokenHERE",
     "prefix": "-",
-    "yourid": "yourDiscordId",
+    "yourid": "yourDiscordId(ofTheOwnerOfThisBot/Server)",
     "defaultmsg": "-help | dedev.io",
-    "botstatus": "dnd"
+    "type": "2",
+    "status": "dnd",
+    "cooldown": "120",
+    "devmsgcmd": "dmYouCommandName"
 }
