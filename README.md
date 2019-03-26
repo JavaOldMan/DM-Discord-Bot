@@ -13,16 +13,24 @@ The message is fully customizable in Discord.
 Type `-help` on Discord to get a full list of the commands!
 
 ```
-name: "say"
-value: "says something as the bot"
-name: "message"
-value: "sets the message of the bot"
-name: "type"
-value: "sets the type of the msg"
-name: "dmYou"
-value: `Sends a DM to you`
-name: "dm"
-value: "Sends a DM to the entered ID"
-name: "ping"
-value: "Shows the Bots response time"
+**say**
+Says something as the Bot
+**message**
+Sets the message of the Bot
+**type**
+Sets the type of the msg
+**msg**
+Sends a DM to @yourID
+**dm**
+Sends a DM to the entered ID
+**ping**
+Shows the Bots response time
+**success**
+Sends a success message
+**info**
+Sends a info message
+**error**
+Sends a error message
+**warning**
+Sends a success message
 ```
