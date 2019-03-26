@@ -13,15 +13,16 @@ The message is fully customizable in Discord.
 Type `-help` on Discord to get a full list of the commands!
 
 ```
-Command: "say"
-says something as KNIF bot
-
-Command: "msg"
-sets the message of the bot
-
-Command: "type"
-sets the type of the msg (1, 2 or 3)
-
-Command: "dm"
-Sends a DM to you
+name: "say"
+value: "says something as the bot"
+name: "message"
+value: "sets the message of the bot"
+name: "type"
+value: "sets the type of the msg"
+name: "dmYou"
+value: `Sends a DM to you`
+name: "dm"
+value: "Sends a DM to the entered ID"
+name: "ping"
+value: "Shows the Bots response time"
 ```
