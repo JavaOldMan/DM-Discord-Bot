@@ -1,13 +1,13 @@
 # DM-Discord-Bot
-Shows a message and Gives you DMs
-The message is fully customizable in Discord.
+Shows a message and gives you DM's
+The messages are fully customizable in Discord.
 
 # Setup
 **1.** Run `npm install --save` and `npm install discord.js --save` in the project folder
 
 **2.** Go to `config.json` and edit the settings.
 
-**3.** Start run.sh on your server
+**3.** Start `run.sh` on your server
 
 # Commands
 Type `-help` on Discord to get a full list of the commands!
