@@ -1,8 +1,8 @@
 {
-    "token": "yourDiscordBotTokenHERE",
-    "prefix": "-",
-    "yourid": "yourDiscordId(ofTheOwnerOfThisBot/Server)",
-    "defaultmsg": "-help | dedev.io",
+    "token": "NTQwMzIzOTMyNTkxNjIwMTE2.XSvSHw.793RunIQRQjw5fOTT1VgSOP4mV8",
+    "prefix": ";",
+    "yourid": "239470241992671232",
+    "defaultmsg": ";help | mayflowerleti.net",
     "type": "2",
     "status": "dnd",
     "cooldown": "120",
